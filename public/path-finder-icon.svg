@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer circle -->
+  <circle cx="256" cy="256" r="256" fill="#10B981"/>
+  
+  <!-- Inner diamond -->
+  <rect 
+    x="176" 
+    y="176" 
+    width="160" 
+    height="160" 
+    fill="white"
+    transform="rotate(45 256 256)"
+  />
+</svg> 
