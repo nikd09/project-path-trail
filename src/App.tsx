@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, Link } from 'react-router-dom';
-import { Sun, Moon, Globe, Book, Languages, ChevronDown, Sparkles, Brain, PenTool, Users, Building2, GraduationCap, CheckCircle, DollarSign, Star, ArrowRight, ExternalLink, FileText, Home, CreditCard, School } from 'lucide-react';
+import { Sun, Moon, Globe, Book, Languages, ChevronDown, Sparkles, Brain, PenTool, Users, Building2, GraduationCap, CheckCircle, DollarSign, Star, ArrowRight, ExternalLink, FileText, Home, CreditCard, School, LayoutDashboard } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
 import { AuthModal } from './components/AuthModal';
 import { RoadmapGenerator } from './pages/RoadmapGenerator';
@@ -22,6 +22,7 @@ import { SopLor } from './pages/SopLor';
 import { AuthProvider } from './contexts/AuthContext';
 import { Payment } from './pages/Payment';
 import { BookMentor } from './pages/BookMentor';
+import { Dashboard } from './pages/Dashboard';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -132,6 +133,13 @@ function App() {
                             <Building2 className="w-5 h-5" />
                             <span>Housing & Blocked Account</span>
                           </Link>
+                          <Link 
+                            to="/dashboard" 
+                            className="flex items-center space-x-3 px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                          >
+                            <LayoutDashboard className="w-5 h-5" />
+                            <span>Dashboard</span>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -187,6 +195,7 @@ function App() {
               <Route path="/transform-journey" element={<PersonalizedConsultation />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/book-mentor" element={<BookMentor />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </div>
         </div>

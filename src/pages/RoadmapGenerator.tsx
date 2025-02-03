@@ -179,20 +179,20 @@ export function RoadmapGenerator({ isDarkMode }: RoadmapGeneratorProps) {
             
             <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
               <div className="flex gap-4">
-            <input
-              type="text"
+          <input
+            type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Enter your desired career (e.g., Chemical Engineer)"
                   className="flex-1 px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-blue-500 transition-colors"
                 />
-            <button
+          <button
                   type="submit"
                   className="px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-lg hover:opacity-90 transition-opacity"
                 >
                   Generate
-            </button>
-              </div>
+          </button>
+        </div>
             </form>
           </div>
 
@@ -246,7 +246,7 @@ export function RoadmapGenerator({ isDarkMode }: RoadmapGeneratorProps) {
                         <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                           {getCareerSummary(selectedAmbition.ambition)}
                         </p>
-                  </div>
+              </div>
 
                       {/* Key Information Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -449,7 +449,7 @@ export function RoadmapGenerator({ isDarkMode }: RoadmapGeneratorProps) {
                     </div>
                   </div>
                 )}
-              </div>
+    </div>
             </motion.div>
           )}
 

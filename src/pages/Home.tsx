@@ -25,12 +25,12 @@ export function Home() {
               >
                 Start Your Journey
               </Link>
-              <button
-                onClick={() => navigate('/transform-journey')}
+              <Link
+                to="/transform-journey"
                 className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-xl text-gray-700 dark:text-white bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg transition-all duration-200"
               >
-                Find a Consultant
-              </button>
+                View All Services
+              </Link>
             </div>
           </div>
         </div>
@@ -39,4 +39,6 @@ export function Home() {
       {/* ... rest of the home page content ... */}
     </div>
   );
-} 
+}
+
+export default Home; 
