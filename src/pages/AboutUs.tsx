@@ -10,43 +10,43 @@ const teamMembers = [
     initials: 'AAB',
     name: 'Ajay Adhitya Balasubramanian',
     image: '/team/aab.jpg',
-    linkedin: 'https://linkedin.com/in/ajay',
-    email: 'ajay@example.com'
+    linkedin: 'https://www.linkedin.com/in/ajay-adhitya-balasubramanian-5b00b3152/',
+    email: 'YOUR_ACTUAL_EMAIL_FOR_AJAY'
   },
   {
     initials: 'KGMK',
     name: 'Kesavarthanan Gali Makesh Kumar',
     image: '/team/kgmk.jpg',
-    linkedin: '#',
-    email: '#'
+    linkedin: 'https://www.linkedin.com/in/kesavarthanan-gali-makesh-kumar-04012002/',
+    email: 'kesavarthanan.gali@gmail.com'
   },
   {
     initials: 'ND',
     name: 'Nikhil Deshmukh',
     image: '/team/nd.jpg',
-    linkedin: '#',
-    email: '#'
+    linkedin: 'https://www.linkedin.com/in/nikhil-deshmukh-/',
+    email: '05nikhildeshmukh09@gmail.com'
   },
   {
     initials: 'RN',
     name: 'Rishab Nair',
     image: '/team/rn.jpg',
-    linkedin: '#',
-    email: '#'
+    linkedin: 'https://linkedin.com/in/rishab-nair',
+    email: 'rishab@example.com'
   },
   {
     initials: 'RB',
-    name: 'Rushikesh Bagu',
+    name: 'Rushikesh Bagul',
     image: '/team/rb.jpg',
-    linkedin: '#',
-    email: '#'
+    linkedin: 'https://www.linkedin.com/in/rushikeshbagul08/',
+    email: 'rushikesh@example.com'
   },
   {
     initials: 'SW',
     name: 'Soyeon Woo',
     image: '/team/sw.jpg',
-    linkedin: '#',
-    email: '#'
+    linkedin: 'https://linkedin.com/in/soyeon-woo',
+    email: 'soyeon@example.com'
   }
 ];
 

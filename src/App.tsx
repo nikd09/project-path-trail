@@ -6,7 +6,6 @@ import { AuthModal } from './components/AuthModal';
 import { RoadmapGenerator } from './pages/RoadmapGenerator';
 import { Logo } from './components/Logo';
 import { AboutUs } from './pages/AboutUs';
-import { AboutUs as AboutUsPage, RoadmapGenerator as RoadmapGeneratorPage } from './pages';
 import { motion } from 'framer-motion';
 import { PartnerLogo } from './components/PartnerLogos';
 import { Blog } from './pages/Blog';
@@ -22,7 +21,13 @@ import { SopLor } from './pages/SopLor';
 import { AuthProvider } from './contexts/AuthContext';
 import { Payment } from './pages/Payment';
 import { BookMentor } from './pages/BookMentor';
+import { DashboardLayout } from './pages/DashboardLayout';
 import { Dashboard } from './pages/Dashboard';
+import { UploadCentre } from './pages/UploadCentre';
+import { Universities } from './pages/Universities';
+import { DocumentStatus } from './pages/DocumentStatus';
+import { OtherServices } from './pages/OtherServices';
+import { Settings } from './pages/Settings';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -195,7 +200,14 @@ function App() {
               <Route path="/transform-journey" element={<PersonalizedConsultation />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/book-mentor" element={<BookMentor />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard" element={<DashboardLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="upload" element={<UploadCentre />} />
+                <Route path="universities" element={<Universities />} />
+                <Route path="documents" element={<DocumentStatus />} />
+                <Route path="services" element={<OtherServices />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
             </Routes>
           </div>
         </div>
