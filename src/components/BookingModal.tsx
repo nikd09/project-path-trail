@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Loader } from 'lucide-react';
+import { stripePromise } from '../lib/stripe';
+import { supabase } from '../lib/supabaseClient';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -12,10 +14,73 @@ interface BookingModalProps {
 }
 
 export function BookingModal({ isOpen, onClose, consultant }: BookingModalProps) {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    date: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    onClose();
+    setLoading(true);
+
+    try {
+      // 1. Create a booking record in your database
+      const { data: booking, error: bookingError } = await supabase
+        .from('bookings')
+        .insert([
+          {
+            consultant_name: consultant.name,
+            ...formData,
+            amount: 500, // $500 consultation fee
+            status: 'pending'
+          }
+        ])
+        .select()
+        .single();
+
+      if (bookingError) throw bookingError;
+
+      // 2. Create Stripe Checkout Session
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          bookingId: booking.id,
+          consultantName: consultant.name,
+          amount: 500,
+          customerEmail: formData.email
+        }),
+      });
+
+      const session = await response.json();
+
+      // 3. Redirect to Stripe Checkout
+      const stripe = await stripePromise;
+      const { error } = await stripe!.redirectToCheckout({
+        sessionId: session.id
+      });
+
+      if (error) throw error;
+
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Payment failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -47,6 +112,9 @@ export function BookingModal({ isOpen, onClose, consultant }: BookingModalProps)
                 <input
                   type="text"
                   required
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
               </div>
@@ -58,6 +126,9 @@ export function BookingModal({ isOpen, onClose, consultant }: BookingModalProps)
                 <input
                   type="email"
                   required
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
               </div>
@@ -69,6 +140,9 @@ export function BookingModal({ isOpen, onClose, consultant }: BookingModalProps)
                 <input
                   type="tel"
                   required
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
               </div>
@@ -80,6 +154,9 @@ export function BookingModal({ isOpen, onClose, consultant }: BookingModalProps)
                 <input
                   type="date"
                   required
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
               </div>
@@ -90,15 +167,23 @@ export function BookingModal({ isOpen, onClose, consultant }: BookingModalProps)
                 </label>
                 <textarea
                   rows={3}
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                disabled={loading}
+                className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                Book Consultation ($500)
+                {loading ? (
+                  <Loader className="w-5 h-5 animate-spin" />
+                ) : (
+                  'Proceed to Payment ($500)'
+                )}
               </button>
             </form>
           </motion.div>

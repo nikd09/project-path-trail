@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, Link, Navigate } from 'react-router-dom';
 import { Sun, Moon, Globe, Book, Languages, ChevronDown, Sparkles, Brain, PenTool, Users, Building2, GraduationCap, CheckCircle, DollarSign, Star, ArrowRight, ExternalLink, FileText, Home, CreditCard, School, LayoutDashboard } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
 import { AuthModal } from './components/AuthModal';
@@ -28,6 +28,7 @@ import { Universities } from './pages/Universities';
 import { DocumentStatus } from './pages/DocumentStatus';
 import { OtherServices } from './pages/OtherServices';
 import { Settings } from './pages/Settings';
+import { BookingSuccess } from './pages/BookingSuccess';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -208,6 +209,8 @@ function App() {
                 <Route path="services" element={<OtherServices />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
+              <Route path="/booking-success" element={<BookingSuccess />} />
+              <Route path="/booking-cancelled" element={<Navigate to="/consultants" />} />
             </Routes>
           </div>
         </div>
